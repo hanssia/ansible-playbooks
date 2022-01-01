@@ -1,0 +1,77 @@
+---
+- name: Update server
+  hosts: pi
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: Upgrade packages
+    apt:
+      name: '*'
+      state: latest
+      update_cache: yes
+
+  - name: Install packages
+    apt:
+      name: '{{item}}'
+      state: latest
+      update_cache: yes
+    loop:
+      - vim
+      - wget
+      - curl
+      - smartmontools
+      - avahi-daemon
+      - nfs-kernel-server
+
+# Basic NFS Server setup
+  - name: create export filesystem
+    ansible.builtin.file:
+      path: /srv/nfs/Downloads
+      owner: root
+      group: root
+      mode: '1777'
+
+  - name: bind mount the the directory to export
+    ansible.posix.mount:
+      src: /home/hans/Downloads
+      path: /srv/nfs/Downloads
+      opts: bind
+      state: mounted
+      fstype: none
+
+  - name: for ID names to be automatically mapped
+    ansible.builtin.lineinfile:
+      path: /etc/idmapd.conf
+      line: '{{ item.line }}' 
+      create: yes
+    loop:
+      - { line: '[Mapping]' }
+      - { line: 'Nobody-User = nobody' }
+      - { line: 'Nobody-Group = nogroup' }
+
+  - name: exportfs
+    ansible.builtin.lineinfile:
+      path: /etc/exports
+      regexp: '{{ item.regexp }}'
+      line: '{{ item.line }}'
+    loop:
+      - { regexp: '^/srv/nfs ', line: '/srv/nfs  10.0.0.0/24(rw,fsid=0,insecure,no_subtree_check,async)' }
+      - { regexp: '^/srv/nfs/Downloads', line: '/srv/nfs/Downloads  10.0.0.0/24(rw,nohide,insecure,no_subtree_check,async)' }
+
+  - name: port lockdown
+    ansible.builtin.lineinfile:
+      path: /etc/hosts.deny
+      regexp: '^rpcbind mountd '
+      line: 'rpcbind mountd nfsd statd lockd rquotad: ALL'
+
+  - name: open port
+    ansible.builtin.lineinfile:
+      path: /etc/hosts.allow
+      regexp: '^rpcbind mountd '
+      line: 'rpcbind mountd nfsd statd lockd rquotad: 10.0.0.195, 127.0.0.1'
+
+  - name: restart nfs-kernel-server
+    ansible.builtin.service:
+      name: nfs-kernel-server
+      state: restarted
