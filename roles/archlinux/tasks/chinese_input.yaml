@@ -1,0 +1,28 @@
+# Chinese input
+- name: Install Chinese fonts
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - adobe-source-han-sans-cn-fonts
+    - adobe-source-han-serif-cn-fonts
+
+- name: Install fcitx5
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - fcitx5-im
+    - fcitx5-chinese-addons
+  
+- name: Enable fcitx
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  loop:
+    - { regexp: 'GTK_IM_MODULE=', line: 'GTK_IM_MODULE=fcitx' }
+    - { regexp: 'QT_IM_MODULE=', line: 'QT_IM_MODULE=fcitx' }
+    - { regexp: 'XMODIFIERS=', line: 'XMODIFIERS=@im=fcitx' }

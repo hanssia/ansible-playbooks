@@ -1,0 +1,30 @@
+# Network 
+- name: Use systemd-networkd for network
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/network/20-wired-network
+    line: '{{ item.line }}'
+    create: yes
+    backup: yes
+  loop:
+    - { line: '[Match]' }
+    - { line: 'Name=enp25s0' }
+    - { line: '[Network]' }
+    - { line: 'DHCP=yes' }
+
+- name: use systemd-resolved for DNS service
+  ansible.builtin.file:
+    src: /run/systemd/resolve/stub-resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    state: link
+    
+- name: start systemd-resolved
+  ansible.builtin.service:
+    name: systemd-resolved
+    state: started
+
+- name: start systemd-networkd
+  ansible.builtin.service:
+    name: systemd-networkd
+    state: started

@@ -1,0 +1,15 @@
+# Bluetooth and Logitech MX Master 3
+- name: Install required packages
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - bluez
+    - bluez-utils
+    - solaar
+
+- name: enable bluetooth
+  ansible.builtin.service:
+    name: bluetooth
+    state: started

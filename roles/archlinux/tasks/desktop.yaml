@@ -1,0 +1,18 @@
+# KDE
+- name: Install KDE desktop environment
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - plasma-desktop
+    - sddm
+    - kscreen
+    - alsa-utils
+    - plasma-pa
+    - ffmpegthumbs
+
+- name: start sddm
+  ansible.builtin.service:
+    name: sddm
+    state: started

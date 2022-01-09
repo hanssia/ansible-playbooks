@@ -1,0 +1,24 @@
+---
+packages:
+  - vim
+  - wget
+  - curl
+  - smartmontools
+  - tree
+  - texinfo
+  - firefox
+  - konsole
+  - dolphin
+  - gwenview
+  - vlc
+  - kdenlive
+  - gimp
+  - base-devel
+  - unzip
+  - unrar
+  - ark
+  - htop
+  - sysstat
+  - tmux
+  - rsync
+  - calibre
