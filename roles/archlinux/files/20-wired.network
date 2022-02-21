@@ -1,0 +1,6 @@
+[Match]
+Name=enp35s0
+
+[Network]
+DHCP=yes
+ 

@@ -1,4 +1,4 @@
-# Chinese input
+---
 - name: Install Chinese fonts
   pacman:
     name: '{{ item }}'
@@ -17,7 +17,7 @@
     - fcitx5-im
     - fcitx5-chinese-addons
   
-- name: Enable fcitx
+- name: Enable fcitx5
   ansible.builtin.lineinfile:
     path: /etc/environment
     regexp: '{{ item.regexp }}'

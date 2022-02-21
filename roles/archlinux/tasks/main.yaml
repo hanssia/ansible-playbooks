@@ -1,18 +1,24 @@
 ---
-- name: Configure network
-  import_tasks: network.yaml
+#- name: Configure network
+#  import_tasks: network.yaml
 
-- name: Upgrade packages
-  import_tasks: update_packages.yaml
+#- name: Upgrade packages
+#  import_tasks: update_packages.yaml
 
-- name: Install other packages
-  import_tasks: packages.yaml
+- name: Install KDE Plasma and enable sddm
+  import_tasks: plasma.yaml
 
-- name: Install and configure fcitx
-  import_tasks: chinese_input.yaml
+#- name: Install packages that need no config
+#  import_tasks: packages.yaml
 
-- name: Install and configure bluetooth
-  import_tasks: bluetooth.yaml
+#- name: Install and configure fcitx
+#  import_tasks: chinese_input.yaml
 
-- name: Install KDE and enable sddm
-  import_tasks: desktop.yaml
+#- name: Install and configure bluetooth
+#  import_tasks: bluetooth.yaml
+
+#- name: Install and configure goldenDict
+#  import_tasks: goldendict.yaml
+
+#- name: Install Spacemacs
+#  import_tasks: spacemacs.yaml

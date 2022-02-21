@@ -1,0 +1,31 @@
+---
+- name: Install KDE desktop environment
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - plasma-desktop
+    - sddm
+    - sddm-kcm
+    - kscreen
+    - alsa-utils
+    - plasma-pa
+    - ffmpegthumbs
+
+- name: start sddm
+  ansible.builtin.service:
+    name: sddm
+    state: started
+
+- name: configure dolphin icons size and spacing
+  ansible.builtin.replace:
+    path: /home/hans/.config/dolphinrc
+    after: '[IconsMode]'
+    regexp: '{{ item.regexp }}'
+    replace: '{{ item.line }}'
+  loop:
+    - { regexp: '^FontWeight=.*$', line: 'FontWeight=50' }
+    - { regexp: '^IconSize=.*$', line: 'IconSize=128' }
+    - { regexp: '^PreviewSize=.*$', line: 'PreviewSize=128' }
+    - { regexp: '^TextWidthIndex=.*$', line: 'TextWidthIndex=0' }

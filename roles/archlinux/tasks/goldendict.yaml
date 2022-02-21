@@ -1,0 +1,14 @@
+---
+- name: Install required packages
+  pacman:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+  loop:
+    - goldendict
+    - dictd
+
+- name: enable dictd
+  ansible.builtin.service:
+    name: dictd
+    state: started

@@ -1,5 +1,5 @@
-# Bluetooth and Logitech MX Master 3
-- name: Install required packages
+---
+- name: Install bluez and solaar
   pacman:
     name: '{{ item }}'
     state: present
@@ -13,3 +13,11 @@
   ansible.builtin.service:
     name: bluetooth
     state: started
+
+- name: autostart Solaar
+  copy:
+    src: Solaar.desktop
+    dest: /home/hans/.config/autostart/Solaar.desktop
+    owner: hans
+    group: hans
+    mode: '0600'

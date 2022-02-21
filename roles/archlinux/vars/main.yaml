@@ -3,6 +3,7 @@ packages:
   - vim
   - wget
   - curl
+  - rsync
   - smartmontools
   - tree
   - texinfo
@@ -12,6 +13,7 @@ packages:
   - gwenview
   - vlc
   - kdenlive
+  - audacity
   - gimp
   - base-devel
   - unzip
@@ -20,5 +22,13 @@ packages:
   - htop
   - sysstat
   - tmux
-  - rsync
   - calibre
+  - handbrake
+  - blender
+  - smplayer
+  - mplayer
+  - seamonkey
+  - clementine
+  - libreoffice
+  - spectacle
+  - simplescreenrecorder

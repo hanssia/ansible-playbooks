@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=solaar -w hide -b solaar
+Icon=solaar
+Name=Solaar
+Path=
+Terminal=False
+Type=Application
