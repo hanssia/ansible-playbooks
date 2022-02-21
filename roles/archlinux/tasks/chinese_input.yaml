@@ -26,3 +26,11 @@
     - { regexp: 'GTK_IM_MODULE=', line: 'GTK_IM_MODULE=fcitx' }
     - { regexp: 'QT_IM_MODULE=', line: 'QT_IM_MODULE=fcitx' }
     - { regexp: 'XMODIFIERS=', line: 'XMODIFIERS=@im=fcitx' }
+
+- name: Switch English/Chinese/French with 'Super+Space' # not to conflict with emacs
+  copy:
+    src: fcitx5_config
+    dest: /home/hans/.config/fcitx5/config
+    owner: hans
+    group: hans
+    mode: '0600'

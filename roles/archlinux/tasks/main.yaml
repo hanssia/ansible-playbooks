@@ -5,14 +5,14 @@
 #- name: Upgrade packages
 #  import_tasks: update_packages.yaml
 
-- name: Install KDE Plasma and enable sddm
-  import_tasks: plasma.yaml
+#- name: Install KDE Plasma and enable sddm
+#  import_tasks: plasma.yaml
 
 #- name: Install packages that need no config
 #  import_tasks: packages.yaml
 
 #- name: Install and configure fcitx
-#  import_tasks: chinese_input.yaml
+# import_tasks: chinese_input.yaml
 
 #- name: Install and configure bluetooth
 #  import_tasks: bluetooth.yaml
